@@ -18,5 +18,8 @@ export class ProductService {
   async addProduct(product: Product) {
     return this.productRepo.addProduct(product);
   }
+  async deleteProductById(id: number) {
+    return this.productRepo.deleteProductById(id);
+  }
 }
 

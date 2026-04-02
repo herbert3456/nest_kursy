@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -47,5 +48,16 @@ export class ProductController {
       date: new Date(),
     };
     await this.productService.addProduct(newProduct);
+  }
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a product by ID' })
+  @ApiResponse({ status: 200, description: 'Product deleted' })
+  @ApiResponse({ status: 404, description: 'Product not found' })
+  async deleteProductById(@Param('id') id: string) {
+    const idNum = parseInt(id, 10);
+    if (isNaN(idNum)) {
+      throw new Error('Invalid product ID');
+    }
+    await this.productService.deleteProductById(idNum);
   }
 }
