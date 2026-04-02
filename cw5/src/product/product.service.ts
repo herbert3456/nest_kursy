@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { FileProductRepo } from 'src/models/fileProductsRepo';
 import { type IProductRepo } from 'src/models/IProductRepo';
+import { Product } from 'src/models/productModel';
 
 @Injectable()
 export class ProductService {
@@ -13,6 +14,9 @@ export class ProductService {
   }
   async getProductById(id: number) {
     return this.productRepo.getProductById(id);
+  }
+  async addProduct(product: Product) {
+    return this.productRepo.addProduct(product);
   }
 }
 
