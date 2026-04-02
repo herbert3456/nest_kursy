@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -59,5 +60,21 @@ export class ProductController {
       throw new Error('Invalid product ID');
     }
     await this.productService.deleteProductById(idNum);
+  }
+  @Put(':id')
+  @ApiOperation({ summary: 'Update a product by ID' })
+  @ApiResponse({ status: 200, description: 'Product updated' })
+  async updateProduct(@Param('id') id: string, @Body() product: { name: string; price: number }) {
+    const idNum = parseInt(id, 10);
+    if (isNaN(idNum)) {
+      throw new Error('Invalid product ID');
+    }
+    const updatedProduct = {
+      id: idNum,
+      name: product.name,
+      price: product.price,
+      date: new Date(),
+    };
+    await this.productService.updateProduct(updatedProduct);
   }
 }
