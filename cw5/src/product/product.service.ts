@@ -11,5 +11,8 @@ export class ProductService {
   async getProducts() {
     return this.productRepo.getProducts();
   }
+  async getProductById(id: number) {
+    return this.productRepo.getProductById(id);
+  }
 }
 
